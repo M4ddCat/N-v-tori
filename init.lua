@@ -35,3 +35,19 @@ require "autocmds"
 vim.schedule(function()
   require "mappings"
 end)
+
+vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+  pattern = "*.mac",
+  callback = function()
+    -- Жёстко задаём cp866 до чтения файла
+    vim.cmd("setlocal fileencoding=cp866")
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufReadPost", {
+  pattern = "*.mac",
+  callback = function()
+    -- Принудительно перечитываем в cp866
+    vim.cmd("e! ++enc=cp866")
+  end,
+})

@@ -1,9 +1,15 @@
-**This repo is supposed to be used as config by NvChad users!**
+![Banner](https://github.com/M4ddCat/N-v-tori/blob/main/img/nvtori_banner.jpg)
 
-- The main nvchad repo (NvChad/NvChad) is used as a plugin by this repo.
-- So you just import its modules , like `require "nvchad.options" , require "nvchad.mappings"`
-- So you can delete the .git from this repo ( when you clone it locally ) or fork it :)
+#Setup
 
-# Credits
+from cmd:
 
-1) Lazyvim starter https://github.com/LazyVim/starter as nvchad's starter was inspired by Lazyvim's . It made a lot of things easier!
+````
+git clone https://github.com/M4ddCat/N-v-tori %USERPROFILE%\AppData\Local\nvim && nvim
+````
+
+from powershell:
+
+````
+git clone https://github.com/M4ddCat/N-v-tori $ENV:USERPROFILE\AppData\Local\nvim; nvim
+````

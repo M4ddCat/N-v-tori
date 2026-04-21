@@ -36,16 +36,32 @@ return {
 
         vim.filetype.add({
             extension = {
-                mac = "mac",
+                mac = "rsl",
+                rsl = "rsl",
             },
         })
 
         vim.api.nvim_create_autocmd("FileType", {
-            pattern = "mac",
+            pattern = "rsl",
             callback = function(args)
                 local buf = args.buf
-                vim.treesitter.start(buf, "rsl")
-                vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                
+                -- Функция для безопасного запуска подсветки
+                local function start_treesitter()
+                    if pcall(vim.treesitter.start, buf, "rsl") then
+                        vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                        return true
+                    end
+                    return false
+                end
+                
+                -- Пробуем запустить сразу
+                if not start_treesitter() then
+                    -- Если не получилось, ждём установки парсера
+                    vim.notify("Installing RSL parser...", vim.log.levels.INFO)
+                    vim.cmd("TSInstall rsl")
+                    start_treesitter()
+                end
             end,
         })
     end,
